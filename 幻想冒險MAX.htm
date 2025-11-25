@@ -462,6 +462,7 @@ const CONFIG = {
 const Player = {
     hp: 100,
     maxHp: 100,
+    baseMaxHp: 100,
     baseAtk: 5,
     gold: 100,
     depth: 0,
@@ -777,6 +778,7 @@ const Game = {
             Player.gold = 1000000;
             Player.hp = 1000000;
             Player.maxHp = 1000000;
+            Player.baseMaxHp = 1000000;
             this.updateUI();
         } else {
             this.updateUI();
@@ -822,7 +824,7 @@ const Game = {
 
         // 2. 計算新的 MaxHP
         let bonusHp = Player.equipment.armor ? Player.equipment.armor.val : 0;
-        const newMaxHp = 100 + bonusHp; 
+        const newMaxHp = Player.baseMaxHp + bonusHp; 
         
         // 3. 應用新的 MaxHP
         Player.maxHp = newMaxHp;
