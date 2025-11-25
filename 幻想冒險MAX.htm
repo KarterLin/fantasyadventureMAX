@@ -204,7 +204,7 @@
         }
         #class-modal { display: flex; }
 
-        .class-options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 500px; width: 100%; padding: 20px; }
+        .class-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; max-width: 750px; width: 100%; padding: 20px; }
         .class-card {
             background: #333; padding: 20px; border-radius: 8px; cursor: pointer;
             border: 2px solid #555; text-align: center; transition: 0.2s;
@@ -259,6 +259,10 @@
         <div class="class-card" onclick="Game.selectClass('cultist')">
             <div class="class-title">😈 惡魔信徒</div>
             <div class="class-desc">開局自帶<br>一個惡魔詛咒</div>
+        </div>
+        <div class="class-card" onclick="Game.selectClass('huangzonghao')">
+            <div class="class-title">👑 黃宗豪</div>
+            <div class="class-desc">初始金幣<br>1000000 G</div>
         </div>
     </div>
 </div>
@@ -561,7 +565,7 @@ const Game = {
             document.getElementById('class-modal').style.display = 'none';
 
             // 更新職業徽章
-            const badgeMap = { 'knight': '🛡️ 騎士', 'merchant': '💰 商販', 'thief': '🗡️ 盜賊', 'cultist': '😈 惡魔信徒' };
+            const badgeMap = { 'knight': '🛡️ 騎士', 'merchant': '💰 商販', 'thief': '🗡️ 盜賊', 'cultist': '😈 惡魔信徒', 'huangzonghao': '👑 黃宗豪' };
             document.getElementById('class-badge').innerText = badgeMap[Player.class] || "";
 
             // 4. 根據當前階段(Phase)還原畫面
@@ -769,11 +773,16 @@ const Game = {
             const demonBuffs = Object.values(CONFIG.buffs).filter(b => b.type === 'demon');
             Player.buff = demonBuffs[Math.floor(Math.random() * demonBuffs.length)];
             this.updateUI();
+        } else if (classType === 'huangzonghao') {
+            Player.gold = 1000000;
+            Player.hp = 1000000;
+            Player.maxHp = 1000000;
+            this.updateUI();
         } else {
             this.updateUI();
         }
 
-        const badgeMap = { 'knight': '🛡️ 騎士', 'merchant': '💰 商販', 'thief': '🗡️ 盜賊', 'cultist': '😈 惡魔信徒' };
+        const badgeMap = { 'knight': '🛡️ 騎士', 'merchant': '💰 商販', 'thief': '🗡️ 盜賊', 'cultist': '😈 惡魔信徒', 'huangzonghao': '👑 黃宗豪' };
         document.getElementById('class-badge').innerText = badgeMap[classType];
 
         this.renderEvent("準備就緒", "你的冒險即將開始...", "祝你好運！", "✨");
